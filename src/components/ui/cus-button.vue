@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+defineOptions({
+  options: {
+    virtualHost: true
+  }
+})
+
 interface Props {
   variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
   size?: 'default' | 'sm' | 'lg' | 'icon'
   className?: string
   disabled?: boolean
   loading?: boolean
+  pressAnimation?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -15,6 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
   className: '',
   disabled: false,
   loading: false,
+  pressAnimation: true
 })
 
 const variantStyles = computed(() => {
@@ -32,8 +40,8 @@ const variantStyles = computed(() => {
 const sizeStyles = computed(() => {
   const styles: Record<string, string> = {
     default: 'h-14 w-full px-4 py-2 text-base',
-    sm: 'h-9 w-full rounded-lg px-3 text-sm',
-    lg: 'h-16 w-full px-8 text-2xl',
+    sm: 'h-9 w-full px-3 text-sm',
+    lg: 'h-16 w-full px-8 text-2xl tracking-widest font-smiley',
     icon: 'h-12 w-12'
   }
   return styles[props.size]
@@ -41,9 +49,9 @@ const sizeStyles = computed(() => {
 
 const baseStyles = computed(() => {
   return [
-    'inline-flex items-center justify-center rounded-2xl font-medium ring-offset-background transition-colors',
+    'inline-flex items-center justify-center rounded-full font-medium ring-offset-background transition-colors',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-    'disabled:pointer-events-none disabled:opacity-50'
+    'disabled:pointer-events-none disabled:opacity-50 transition-transform duration-150 ease-out'
   ].join(' ')
 })
 
@@ -67,7 +75,7 @@ const handleClick = (event: MouseEvent) => {
       sizeStyles, 
       className, 
     ]"
-    hover-class="button-hover"
+    :hover-class="`button-hover ${pressAnimation ? 'press-animation' : ''}`"
     hover-stay-time="100"
     @click="handleClick"
   >
@@ -85,7 +93,9 @@ const handleClick = (event: MouseEvent) => {
 <style>
 .button-hover {
   filter: brightness(0.8);
+}
+
+.press-animation {
   transform: scale(0.95);
-  transition: transform 0.15s ease-out;
 }
 </style>

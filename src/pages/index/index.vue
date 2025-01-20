@@ -11,7 +11,8 @@ import landingBg from '@/static/images/landing-bg.jpeg'
             <HeroLogo />
             <cus-button
                 size="lg"
-                class-name="mb-12 h-20 !rounded-full tracking-widest font-smiley text-2xl"
+                class-name="mb-12 h-20 !rounded-full tracking-widest font-smiley"
+                press-animation
             >
                 开始瞎掰
             </cus-button>

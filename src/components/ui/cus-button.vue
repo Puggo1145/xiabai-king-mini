@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'default',
   className: '',
   disabled: false,
-  loading: false
+  loading: false,
 })
 
 const variantStyles = computed(() => {
@@ -33,7 +33,7 @@ const sizeStyles = computed(() => {
   const styles: Record<string, string> = {
     default: 'h-14 w-full px-4 py-2 text-base',
     sm: 'h-9 w-full rounded-lg px-3 text-sm',
-    lg: 'h-16 w-full px-8 text-lg',
+    lg: 'h-16 w-full px-8 text-2xl',
     icon: 'h-12 w-12'
   }
   return styles[props.size]
@@ -61,7 +61,12 @@ const handleClick = (event: MouseEvent) => {
 <template>
   <button
     :disabled="disabled || loading"
-    :class="[baseStyles, variantStyles, sizeStyles, className]"
+    :class="[
+      baseStyles, 
+      variantStyles, 
+      sizeStyles, 
+      className, 
+    ]"
     hover-class="button-hover"
     hover-stay-time="100"
     @click="handleClick"
@@ -80,5 +85,7 @@ const handleClick = (event: MouseEvent) => {
 <style>
 .button-hover {
   filter: brightness(0.8);
+  transform: scale(0.95);
+  transition: transform 0.15s ease-out;
 }
 </style>

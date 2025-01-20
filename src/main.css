@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'SmileySans-Oblique';
-    src: url('@/static/fonts/SmileySans-Oblique.ttf.woff2') format('woff2');
+  font-family: 'SmileySans-Oblique';
+  src: url('@/static/fonts/SmileySans-mini.ttf');
 }
 
 @layer base {

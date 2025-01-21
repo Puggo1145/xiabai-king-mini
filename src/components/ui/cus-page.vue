@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import { computed, ref, withDefaults } from 'vue';
-import { onMounted } from 'vue';
+import { computed, withDefaults } from 'vue';
+// stores
+import { useStatusBarHeightStore } from '@/stores/use-status-bar-height';
 // icons
 import { ChevronLeft } from '@/constants/icons';
+// images
+import { backgroundTexture } from '@/constants/images';
+
+defineOptions({
+    options: {
+        virtualHost: true
+    }
+})
 
 interface Props {
     // 内置 nav bar 样式: default 只令页面在状态栏之下，nav 会显示一个包含返回按钮的 header
@@ -20,18 +29,14 @@ const props = withDefaults(defineProps<Props>(), {
     backgroundStyle: "default"
 });
 
-const statusBarHeight = ref(0);
+const statusBarHeightStore = useStatusBarHeightStore();
 const paddingTop = computed(() => {
     return props.headerType === "none"
-        ? '0px'
-        : statusBarHeight.value.toString() + 'px'
-});
-onMounted(() => {
-    // 处理 status bar height
-    statusBarHeight.value = uni.getMenuButtonBoundingClientRect().top - 15;
+        ? {}
+        : { paddingTop: `${statusBarHeightStore.statusBarHeight}px` }
 });
 
-const backgroundStyle = computed(() => {
+const backgroundClass = computed(() => {
     return props.backgroundStyle === "transparent"
         ? 'bg-transparent'
         : 'bg-background'
@@ -51,8 +56,8 @@ const goBack = () => {
 <template>
     <view
         class="w-screen h-screen flex flex-col fixed"
-        :class="backgroundStyle"
-        :style="{ paddingTop: paddingTop }"
+        :class="[backgroundClass]"
+        :style="paddingTop"
     >
         <!-- nav bar -->
         <view
@@ -64,7 +69,10 @@ const goBack = () => {
                 flex items-center justify-center"
                 @click="goBack"
             >
-                <image :src="ChevronLeft" class="size-6" />
+                <image
+                    :src="ChevronLeft"
+                    class="size-6"
+                />
             </view>
         </view>
         <!-- 页面 -->
@@ -78,5 +86,12 @@ const goBack = () => {
         >
             <slot />
         </view>
+        <!-- background texture -->
+        <image
+            v-if="props.backgroundStyle === 'default'"
+            :src="backgroundTexture"
+            mode="aspectFill"
+            class="-z-10 absolute top-0 left-0 w-full h-full opacity-20"
+        />
     </view>
 </template>

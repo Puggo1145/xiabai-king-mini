@@ -1,6 +1,9 @@
 {
 	"pages": [
 		{
+			"path": "pages/home/index"
+		},
+		{
 			"path": "pages/index/index"
 		},
 		{

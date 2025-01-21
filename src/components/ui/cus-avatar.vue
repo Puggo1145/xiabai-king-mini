@@ -28,7 +28,7 @@ const hasError = ref(false)
 const sizeStyles = computed(() => {
   const styles: Record<string, string> = {
     sm: 'size-8 text-xs',
-    default: 'size-10 text-base',
+    default: 'size-12 text-base',
     lg: 'size-16 text-lg',
     xl: 'size-24 text-xl'
   }
@@ -72,7 +72,7 @@ const handleError = () => {
     >
       {{ fallback ? getFallbackText(fallback) : alt?.[0]?.toUpperCase() }}
     </view>
-    <text class="text-4xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <text class="text-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         📷
     </text>
   </view>

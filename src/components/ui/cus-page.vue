@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<Props>(), {
 const statusBarHeightStore = useStatusBarHeightStore();
 const paddingTop = computed(() => {
     return props.headerType === "none"
-        ? {}
+        ? { }
         : { paddingTop: `${statusBarHeightStore.statusBarHeight}px` }
 });
 

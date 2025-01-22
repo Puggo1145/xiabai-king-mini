@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { onLaunch } from '@dcloudio/uni-app';
-// stores
-import { useStatusBarHeightStore } from '@/stores/use-status-bar-height';
+import { initiator } from '@/utils/initiator';
 
-// 初始化获取状态栏高度
 onLaunch(() => {
-    const statusBarHeightStore = useStatusBarHeightStore();
-    statusBarHeightStore.setStatusBarHeight(uni.getMenuButtonBoundingClientRect().top - 15);
+    initiator.init();
 });
 </script>
 
